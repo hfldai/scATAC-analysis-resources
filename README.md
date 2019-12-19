@@ -1,5 +1,5 @@
 # Optimization-of-scATAC-seq-analysis
-Pipeline of improved dimensionality reduction, clustering, visualization and motif analysis of single-cell ATAC-seq
+Improving dimensionality reduction, clustering, visualization and motif analysis of single-cell ATAC-seq
 
 Public datasets of scATAC-seq:
 * [10x](https://www.10xgenomics.com/resources/datasets/)
