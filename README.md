@@ -12,10 +12,13 @@ Public datasets of scATAC-seq:
 
 [Benchmarking](https://github.com/pinellolab/scATAC-benchmarking)
 
-Existing pipelines
+Existing pipelines for scATAC-seq analysis
 * [SCALE](https://github.com/jsxlei/SCALE)
 * [cisTopic](https://github.com/aertslab/cisTopic)
 * [snapATAC](https://github.com/r3fang/SnapATAC)
+
+[Batch effects control](http://bioconductor.org/packages/devel/bioc/vignettes/batchelor/inst/doc/correction.html)
+
 
 Labs working on sc analysis
 http://buenrostrolab.com/
