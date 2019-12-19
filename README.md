@@ -7,3 +7,5 @@ Public datasets of scATAC-seq:
   * [10k 1:1 mixture of fresh frozen human (GM12878) and mouse (A20) cells](https://support.10xgenomics.com/single-cell-atac/datasets/1.2.0/atac_v1_hgmm_10k)
   * [5k Peripheral blood mononuclear cells (PBMCs) from a healthy donor](https://support.10xgenomics.com/single-cell-atac/datasets/1.2.0/atac_v1_pbmc_5k)
   * [10k Peripheral blood mononuclear cells (PBMCs) from a healthy donor](https://support.10xgenomics.com/single-cell-atac/datasets/1.2.0/atac_v1_pbmc_10k)
+* [Buenrostro_2018](https://github.com/pinellolab/scATAC-benchmarking/tree/master/Real_Data/Buenrostro_2018_bulkpeaks/input)
+* [Cusanovich_2018](https://github.com/pinellolab/scATAC-benchmarking/tree/master/Real_Data/Cusanovich_2018/input)
