@@ -19,6 +19,7 @@ Existing pipelines for scATAC-seq analysis
 
 [Batch effects control](http://bioconductor.org/packages/devel/bioc/vignettes/batchelor/inst/doc/correction.html)
 
+[scRNA-seq tutorial](https://github.com/yuchaojiang/ISMB2020_SingleCellTutorial)
 
 Labs working on sc analysis
 http://buenrostrolab.com/
