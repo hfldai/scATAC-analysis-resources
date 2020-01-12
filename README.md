@@ -18,6 +18,7 @@ Existing pipelines for scATAC-seq analysis
 * [SCALE](https://github.com/jsxlei/SCALE)
 * [cisTopic](https://github.com/aertslab/cisTopic)
 * [snapATAC](https://github.com/r3fang/SnapATAC)
+* scABC [source](https://github.com/SUwonglab/scABC) | [paper](https://www.nature.com/articles/s41467-018-04629-3)
 
 [Batch effects control](http://bioconductor.org/packages/devel/bioc/vignettes/batchelor/inst/doc/correction.html)
 
