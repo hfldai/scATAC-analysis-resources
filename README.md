@@ -15,9 +15,9 @@ Public datasets of scATAC-seq:
 [Benchmarking](https://github.com/pinellolab/scATAC-benchmarking)
 
 Existing pipelines for scATAC-seq analysis
-* [SCALE](https://github.com/jsxlei/SCALE)
-* [cisTopic](https://github.com/aertslab/cisTopic)
-* [snapATAC](https://github.com/r3fang/SnapATAC)
+* SCALE - [source](https://github.com/jsxlei/SCALE) | [paper](https://www.nature.com/articles/s41467-019-12630-7)
+* cisTopic - [source](https://github.com/aertslab/cisTopic) | [paper](https://www.nature.com/articles/s41592-019-0367-1)
+* snapATAC - [source](https://github.com/r3fang/SnapATAC) | [paper](https://www.biorxiv.org/content/10.1101/615179v2)
 * scABC - [source](https://github.com/SUwonglab/scABC) | [paper](https://www.nature.com/articles/s41467-018-04629-3)
 
 [Batch effects control](http://bioconductor.org/packages/devel/bioc/vignettes/batchelor/inst/doc/correction.html)
