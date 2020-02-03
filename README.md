@@ -11,14 +11,14 @@ Public datasets of scATAC-seq:
 * [Cusanovich_2018 (GM12878/HL-60?)](https://github.com/pinellolab/scATAC-benchmarking/tree/master/Real_Data/Cusanovich_2018/input)
 
 * [Dataset used in SCALE](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/)
-  * [Splenocyte (mouse)](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/?p=%2FSplenocyte&mode=list) ([original paper](https://www.nature.com/articles/s41467-018-07771-0))
-  * [Forebrain (mouse)](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/?p=%2FForebrain&mode=list) (dense matrix, k=8,2088 cells)
-  * [Mouse Atlas (mouse)](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/?p=%2Fmouse_atlas&mode=list) (sparse matrix, k=30, ~80,000 cells)
-  * [Leukemia](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/?p=%2FLeukemia&mode=list)
-  * [InSilico](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/?p=%2FInSilico&mode=list)
-  * [Breast tumor](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/?p=%2FBreast_Tumor&mode=list)
-  * [GM12878vsHEK](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/?p=%2FGM12878vsHEK&mode=list)
-  * [GM12878vsHL](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/?p=%2FGM12878vsHL&mode=list)
+  * [Splenocyte (mouse)](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/?p=%2FSplenocyte&mode=list) |[original paper](https://www.nature.com/articles/s41467-018-07771-0) (k=12, n=3166, #peaks=77453, FACS)
+  * [Forebrain (mouse)](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/?p=%2FForebrain&mode=list) (dense matrix, k=8, n=2088, , #peaks=11285, cellular indexing)
+  * [Mouse Atlas (mouse)](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/?p=%2Fmouse_atlas&mode=list) (sparse matrix, k=30, n=~80,000)
+  * [Leukemia](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/?p=%2FLeukemia&mode=list) (k=6, n=319, #peaks=7602, Fluidigm C1)
+  * [InSilico](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/?p=%2FInSilico&mode=list) (k=6, n=828, #peaks=13668, Fluidigm C1)
+  * [Breast tumor](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/?p=%2FBreast_Tumor&mode=list) (k=2, n=384, #peaks=27884, FACS)
+  * [GM12878vsHEK](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/?p=%2FGM12878vsHEK&mode=list) (k=2, n=526, #peaks=12938, cellular indexing)
+  * [GM12878vsHL](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/?p=%2FGM12878vsHL&mode=list) (k=2, n=597, #peaks=10431, cellular indexing)
 
 [Benchmarking](https://github.com/pinellolab/scATAC-benchmarking)
 
