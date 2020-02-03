@@ -34,3 +34,10 @@ Existing pipelines for scATAC-seq analysis
 
 Labs working on sc analysis
 http://buenrostrolab.com/
+
+
+
+WarpLDA: faster than LDA with Collapsed Gibbs Sampling
+The running time of LDA is mainly determined by two factors: (a) the sampling complexity per-token (here, a token refers to an occurrence of a word) , and (b) the size of random accessed memory per-document (whose time complexity is roughly proportional to the average latency of each access). the Collapsed Gibbs Sampling (CGS) algorithm (which cisTopic adopted previously) is too expensive for large dataset because it has an O(K) (K = the number of topics) complexity per token by enumerating all the K topics assignments.
+Several existing algorithms (e.g. Metropolis-Hastings (MH)) has reduced (a) from O(K) to O(1), but failed to improve (b), leaving it O(KV) (V = the size of vocabulary). Reducing (b) is hard because it is difficult to decouple the access to Cd (the count matrix of topic-document assignment) and Cw (the count matrix of topic-word assignment), since both counts need to be updated instantly after the sampling of each token.
+Now in WarpLDA, based on MH and a new Monte-Carlo Expectation Maximization (MCEM) algorithm, in which both counts are fixed until the sampling of all tokens are finished, they designed a reordering strategy to decouple the accesses to Cd and Cw, thus minimize (b) to O(K), while maintaining (a) as O(1).
