@@ -11,7 +11,7 @@ Public datasets of scATAC-seq:
 * [Cusanovich_2018 (GM12878/HL-60?)](https://github.com/pinellolab/scATAC-benchmarking/tree/master/Real_Data/Cusanovich_2018/input)
 
 * [Dataset used in SCALE](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/)
-  * [Splenocyte (mouse)](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/?p=%2FSplenocyte&mode=list) |[original paper](https://www.nature.com/articles/s41467-018-07771-0) (k=12, n=3166, #peaks=77453, FACS)
+  * [Splenocyte (mouse)](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/?p=%2FSplenocyte&mode=list) | [original paper](https://www.nature.com/articles/s41467-018-07771-0) (k=12, n=3166, #peaks=77453, FACS)
   * [Forebrain (mouse)](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/?p=%2FForebrain&mode=list) (dense matrix, k=8, n=2088, , #peaks=11285, cellular indexing)
   * [Mouse Atlas (mouse)](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/?p=%2Fmouse_atlas&mode=list) (sparse matrix, k=30, n=~80,000)
   * [Leukemia](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/?p=%2FLeukemia&mode=list) (k=6, n=319, #peaks=7602, Fluidigm C1)
