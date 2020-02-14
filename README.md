@@ -20,7 +20,7 @@ Public datasets of scATAC-seq:
   * [GM12878vsHEK](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/?p=%2FGM12878vsHEK&mode=list) (k=2, n=526, #peaks=12938, cellular indexing)
   * [GM12878vsHL](https://cloud.tsinghua.edu.cn/d/eb4371c556bc46ef8516/?p=%2FGM12878vsHL&mode=list) (k=2, n=597, #peaks=10431, cellular indexing)
 
-[Benchmarking](https://github.com/pinellolab/scATAC-benchmarking)
+Benchmarking - [source](https://github.com/pinellolab/scATAC-benchmarking) | [paper](https://genomebiology.biomedcentral.com/articles/10.1186/s13059-019-1854-5)
 
 Existing pipelines for scATAC-seq analysis
 * SCALE - [source](https://github.com/jsxlei/SCALE) | [paper](https://www.nature.com/articles/s41467-019-12630-7)
