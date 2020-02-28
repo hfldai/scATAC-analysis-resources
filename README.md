@@ -42,5 +42,8 @@ Now in WarpLDA, based on MH and a new Monte-Carlo Expectation Maximization (MCEM
 Labs working on sc analysis
 http://buenrostrolab.com/
 
+Topic modelling software 
+http://www.cs.columbia.edu/~blei/topicmodeling_software.html
+
 
 
