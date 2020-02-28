@@ -44,6 +44,7 @@ http://buenrostrolab.com/
 
 Topic modelling software 
 http://www.cs.columbia.edu/~blei/topicmodeling_software.html
+https://github.com/joewandy/hlda
 
 
 
