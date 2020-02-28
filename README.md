@@ -1,4 +1,4 @@
-# Optimization-of-scATAC-seq-analysis
+# scATAC-seq public datasets
 Improving dimensionality reduction, clustering, visualization and motif analysis for single-cell ATAC-seq
 
 Public datasets of scATAC-seq:
