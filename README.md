@@ -35,17 +35,25 @@ Now in WarpLDA, based on MH and a new Monte-Carlo Expectation Maximization (MCEM
 
 * snapATAC - [source](https://github.com/r3fang/SnapATAC) | [paper](https://www.biorxiv.org/content/10.1101/615179v2)
 * scABC - [source](https://github.com/SUwonglab/scABC) | [paper](https://www.nature.com/articles/s41467-018-04629-3)
+* Cicero (scATAC version of [Monocle](https://cole-trapnell-lab.github.io/monocle3/), including trajectory inference)- [source](https://cole-trapnell-lab.github.io/cicero-release/docs_m3/) | [paper](https://www.cell.com/molecular-cell/fulltext/S1097-2765(18)305)
+* STREAM (scATAC-seq trajectory inference: raw count matrix -> trajectory)- [source](http://stream.pinellolab.org) | [paper](https://www.nature.com/articles/s41467-019-09670-4) | [website](https://stream.pinellolab.partners.org/) | [Monocle3 (scRNA-seq)](https://cole-trapnell-lab.github.io/monocle3/)
+
 
 [Batch effects control](http://bioconductor.org/packages/devel/bioc/vignettes/batchelor/inst/doc/correction.html)
 
 [scRNA-seq tutorial](https://github.com/yuchaojiang/ISMB2020_SingleCellTutorial)
 
-Labs working on sc analysis
+Labs or projects working on sc analysis
 http://buenrostrolab.com/
+https://cusanovichlab.github.io/
+
 
 Topic modelling software 
 http://www.cs.columbia.edu/~blei/topicmodeling_software.html
 https://github.com/joewandy/hlda
+
+Other useful comments:
+http://andrewjohnhill.com/blog/2019/05/06/dimensionality-reduction-for-scatac-data/
 
 
 
