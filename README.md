@@ -42,12 +42,12 @@ Now in WarpLDA, based on MH and a new Monte-Carlo Expectation Maximization (MCEM
 [Batch effects control](http://bioconductor.org/packages/devel/bioc/vignettes/batchelor/inst/doc/correction.html)
 
 scRNA-seq tutorial and benchmarking
-https://scrnaseq-course.cog.sanger.ac.uk/website/biological-analysis.html
-https://github.com/yuchaojiang/ISMB2020_SingleCellTutorial
+* https://scrnaseq-course.cog.sanger.ac.uk/website/biological-analysis.html
+* https://github.com/yuchaojiang/ISMB2020_SingleCellTutorial
 
-Labs or projects working on sc analysis
-http://buenrostrolab.com/
-https://cusanovichlab.github.io/
+Labs working on sc analysis
+* http://buenrostrolab.com/
+* https://cusanovichlab.github.io/
 
 
 Topic modelling software 
