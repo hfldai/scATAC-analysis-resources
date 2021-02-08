@@ -211,7 +211,9 @@ for a cell barcode).
 * https://academic.oup.com/bib/article/22/1/20/5828125
 
 <img src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41576-019-0093-7/MediaObjects/41576_2019_93_Fig3_HTML.png?as=webp" width="600x">
-CCA, canonical correlation analysis; MOFA, multi-omics factor analysis; NMF, non-negative matrix factorization.
+* CCA, canonical correlation analysis (identify a set of variables that are maximally correlated between two data sets); 
+* MOFA, multi-omics factor analysis (identifying a set of factors that explain variance across multiple data modalities and used their method to jointly analyse bulk genomic);
+* NMF, non-negative matrix factorization.
 
 ### [10x](https://support.10xgenomics.com/single-cell-multiome-atac-gex/software/overview/welcome) 
 #### software: `cellranger-arc`
