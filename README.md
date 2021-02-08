@@ -1,6 +1,6 @@
 # scATAC-seq public datasets
-Improving dimensionality reduction, clustering, visualization and motif analysis for single-cell ATAC-seq
-multimodal analysis
+* Improving dimensionality reduction, clustering, visualization and motif analysis for single-cell ATAC-seq
+* multimodal analysis
 
 Public datasets of scATAC-seq:
 * [10x](https://www.10xgenomics.com/resources/datasets/)
