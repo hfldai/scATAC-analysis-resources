@@ -1,5 +1,6 @@
 # scATAC-seq public datasets
 Improving dimensionality reduction, clustering, visualization and motif analysis for single-cell ATAC-seq
+multimodal analysis
 
 Public datasets of scATAC-seq:
 * [10x](https://www.10xgenomics.com/resources/datasets/)
@@ -48,6 +49,7 @@ scRNA-seq tutorial and benchmarking
 Labs working on sc analysis
 * http://buenrostrolab.com/
 * https://cusanovichlab.github.io/
+* https://satijalab.org/
 
 
 Topic modelling software 
