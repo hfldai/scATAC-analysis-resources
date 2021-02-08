@@ -1,6 +1,6 @@
-# 10x multinome of ATAC-seq and RNA-seq
+# 10x multinome of ATAC-seq and RNA-seq - data format & downstream analysis
 
-## Single-library analysis pipeline (software: `cellranger-arc`)
+## 10x Single-library analysis pipeline (software: `cellranger-arc`)
 <img src="https://support.10xgenomics.com/img/cellranger-arc/algo_chart.png" width=600x>
 
 ## Raw data formats
@@ -9,8 +9,9 @@
 ![image](resources/10x_multinome_beads.png)
 * The **10x Barcode** on the ATAC and GEX primers on the same Gel Bead are **NOT identical**. 
 Each Gel Bead has a unique pairing of ATAC and GEX barcode. 
+* Barcode translation after read processing corresponds ATAC barcodes to GEX barcodes.
 * The cell barcode distinguishes between cells, and the UMI (Unique Molecular Identifier) distinguishes between molecules within a cell.
-* per_barcode_metrics.csv provides all observed pairings between ATAC and GEX barcodes.
+
 #### Chromium Single Cell Multiome ATAC Library
 ![image](resources/10x_cellranger_arc_ATAC_barcode.png)
 ![image](resources/10x_cellranger_arc_ATAC_barcode_seq.png)
@@ -159,79 +160,58 @@ The trimmed bases are present in the sequence of the BAM record and are soft cli
 Identify the barcodes of cell population from the non-cell background using **paired information**:
 * ATAC peak-bc matrix: count of transposition events in peaks
 * GEX gene-bc matrix: gene expression UMIs 
-The cell-calling algorithm uses this paired information to identify 
 
 Steps:
 
 1. Barcodes filtering
-    1. ATAC "low targeting" barcodes: 
-        
-        Barcode whose **fraction of fragments overlapping called peaks** is **lower than the fraction of 
-        genome in peaks** (for this calculation, peaks are padded by 2kbp on both sides to account for 
-        fragment length). 
-        Filtered barcodes typically have cut sites randomly distributed over the genome, 
-        are not targeted to be enriched near functional regions, and do not exhibit the typical 
-        ATAC-seq nucleosome phasing signal.
+    1. Mask ATAC "low targeting" barcodes: whose **fraction of fragments overlapping called peaks** is **lower than the fraction of genome in peaks** (for this calculation, peaks are padded by 2kbp on both sides to account for fragment length)).
 
-    2. ATAC gel bead doublets: 
-        
-        Putative gel bead doublets where a partition contains **one cell and two 
-        barcoded gel beads**. These cells then manifest as two barcodes of the same cell type 
-        in the dataset. The rate of such doublets is low and the presence of these few extra barcodes doesn't significantly 
-        affect secondary analysis such as clustering or differential analysis, although it can 
-    
-        potentially inflate abundance measurements of very rare cell types. 
-        The chromatin accessibility library is used to identify a minor-major pair of barcodes (B1, B2) 
-        that are part of a putative gel bead doublet by observing if the pair of barcodes shares 
-        more genomically adjoining "linked" fragments (fragments sharing a transposition event) 
-        with each other (B1-B2) as opposed to themselves (B1-B1 or B2-B2). 
-        The minor barcode is identified as the one with fewer fragments.
+    2. Mask ATAC gel bead doublets: putative gel bead doublets where a partition contains **one cell and two barcoded gel beads**.
 
-    3. Greater than 1 count observed in each library: 
-    
-        The minimum threshold is set at >1 count in each library.
+    3. Greater than 1 count observed in each library: the minimum threshold is set at >1 count in each library.
 
 2. Cell calling
     1. **De-duplication**
         
-        Plots each barcode into a 2D space defined by their ATAC and GEX counts. 
-        Barcodes with identical coordinates i.e. ATAC and GEX counts are collapsed into a single 
+        Plots each barcode into a 2D space defined by their **ATAC and GEX counts**. 
+        Barcodes with **identical coordinates** are collapsed into a single 
         measurement to generate a more uniform density of points across the 2D space. _(is it reasonable?)_
         
         This de-emphasizes over-represented low-count barcodes and allows 
         suppression of noise without using thresholds or making assumptions about the count 
         distribution profiles.
         
-    2. **Ordmag-derived initial grouping**
+    2. **Ordmag-derived initial grouping** (initial labeling: om_cell/om_non-cell)
         
         Filtering using thresholds derived from "ordmag". Ordmag is a published algorithm that finds 
         **a threshold that is 10-fold less than the maximum value** after removing outliers. 
         A threshold is defined independently for each dimension and barcodes above both ATAC and GEX 
         thresholds are labeled as cells, with the remainder labeled as non-cells.
         
-    3. **K-means boundary refinement** 
+    3. **K-means boundary refinement** (refined labelling: km_cell/km_non-cell)
         
-        “Ordmag” is insufficient to capture the spread of paired ATAC and GEX data, so using K-means
-        to **refine the boundaries** of these initial set of cells. The K-means is initialized using 
+        Using K-means to **refine the boundaries** of these initial set of cells. The K-means is initialized using 
         centroids calculated from the ordmag-defined cell and non-cell groups, setting K=2.
         
     4. **Map classification to de-duplicated barcodes** 
         
         - Step 3 K-means assignment - used to classify the full set of non-excluded barcodes. 
-        - Step 1 masked barcodes are assigned to the cell/non-cell based on the K-means classification 
-        of their counterpart with identical ATAC and GEX counts.
-        
+        - Step 1 masked barcodes are assigned to the cell/non-cell based on the K-means classification of their counterpart with identical ATAC and GEX counts.
 
-**Force cell**: override override the default pipeline Joint Cell Calling algorithm, when 
-additional parameters of `cellranger-arc count` are provided: `--min-atac-count=N`(min number of 
-transposition events in peaks for a cell barcode) and `--min-gex-count=N` (min number of UMI counts 
+   **Force cell**: override override the default pipeline Joint Cell Calling algorithm, when additional parameters of `cellranger-arc count` are provided: `--min-atac-count=N`(min number of transposition events in peaks for a cell barcode) and `--min-gex-count=N` (min number of UMI counts 
 for a cell barcode).
-[fig]
+
+   <img src="https://support.10xgenomics.com/img/cellranger-arc/joint-cell-calling.png" height="250x"><img src="https://support.10xgenomics.com/img/cellranger-arc/force-cells.png" height="250x">
     
 
 ## Downstream Analysis (based on peak-cell count matrix and gene-cell count matrix)
-<img src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41576-019-0093-7/MediaObjects/41576_2019_93_Fig3_HTML.png?as=webp" width="600x">
+### Reviews
+* https://www.nature.com/articles/s41576-019-0093-7
+* https://www.nature.com/articles/s41592-019-0692-4#Sec4
+* https://academic.oup.com/bib/article/22/1/20/5828125
 
+<img src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41576-019-0093-7/MediaObjects/41576_2019_93_Fig3_HTML.png?as=webp" width="600x">
+CCA, canonical correlation analysis; MOFA, multi-omics factor analysis; NMF, non-negative matrix factorization.
 
 ### [10x](https://support.10xgenomics.com/single-cell-multiome-atac-gex/software/overview/welcome) 
 #### software: `cellranger-arc`
