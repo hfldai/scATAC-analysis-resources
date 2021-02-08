@@ -1,17 +1,22 @@
 # 10x multinome of ATAC-seq and RNA-seq
 
+## Single-library analysis pipeline (software: `cellranger-arc`)
+<img src="https://support.10xgenomics.com/img/cellranger-arc/algo_chart.png" width=600x>
+
 ## Raw data formats
 ### Barcodes
 #### Single Cell Multiome Gel Beads A (PN- 2000261)
 ![image](resources/10x_multinome_beads.png)
-The **10x Barcode** on the ATAC and GEX primers on the same Gel Bead are **NOT identical**. 
+* The **10x Barcode** on the ATAC and GEX primers on the same Gel Bead are **NOT identical**. 
 Each Gel Bead has a unique pairing of ATAC and GEX barcode. 
+* The cell barcode distinguishes between cells, and the UMI (Unique Molecular Identifier) distinguishes between molecules within a cell.
+* per_barcode_metrics.csv provides all observed pairings between ATAC and GEX barcodes.
 #### Chromium Single Cell Multiome ATAC Library
 ![image](resources/10x_cellranger_arc_ATAC_barcode.png)
 ![image](resources/10x_cellranger_arc_ATAC_barcode_seq.png)
 
 #### Chromium Single Cell Multiome GEM Library
-![image](resources/10x_cellranger_arc_ATAC_barcode.png)
+![image](resources/10x_cellranger_arc_GEX_barcode.png)
 ![image](resources/10x_cellranger_arc_GEX_barcode_seq.png)
 ### Raw fastq
 #### ATAC libraries
@@ -41,21 +46,15 @@ where `[Read Type]` is one of:
 The `cellranger-arc count` outputs `atac_possorted_bam.bam`, 
 a position-sorted and indexed BAM file for the Chromatin Accessibility library.
 Tags:
-* `CB`	Z   - Chromium cellular barcode sequence that is error-corrected, 
-confirmed against a list of known-good barcode sequences and translated.
+* `CB`	Z   - Chromium **cellular barcode** sequence that is error-corrected, 
+confirmed against a list of known-good barcode sequences and translated.(e.g. AGAATGGTCTGCAT-1)
     * Barcode translation - the _in silico_ translation of the error-corrected ATAC barcode
     to its corresponding paired GEX barcode.
 * `CR`	Z	- Chromium cellular barcode sequence as reported by the sequencer.
-* `CY`	Z	- Chromium cellular barcode read quality. Phred scores as reported by sequencer.
 * `BC`	Z	- Sample index read.
-* `QT`	Z	- Sample index read quality. Phred scores as reported by sequencer.
 * `TR`	Z	- Adapter sequence trimmed off the end of the read.
-* `TQ`	Z	- Base quality for the trimmed adapater sequence. Phred scores as reported by sequencer.
 * `GP`	i	- Genome position. _Note: this is an auxiliary tag used for the purpose of 
 duplicate marking and is not intended for downstream use. We intend to deprecate this tag in subsequent versions._
-* `MP`	i	- Genome position of mate-pair. _Note: this is an auxiliary tag used for the purpose 
-of duplicate marking and is not intended for downstream use. We intend to deprecate this tag in 
-subsequent versions._
 
 #### [GEX BAM](https://support.10xgenomics.com/single-cell-multiome-atac-gex/software/pipelines/latest/output/bam-gex)
 The `cellranger-arc` outputs a position-sorted and indexed BAM file of read alignments 
@@ -68,20 +67,15 @@ Cell Ranger ARC modifies MAPQ values
 10x Chromium barcode (associated with a 10x gel bead) and molecular barcode information 
 for each read is stored as TAG fields:
 
-* `CB`	Z	- Chromium cellular barcode sequence that is error-corrected and confirmed against 
+* `CB`	Z	- Chromium **cellular barcode** sequence that is error-corrected and confirmed against 
 a list of known-good barcode sequences.
 * `CR`	Z	- Chromium cellular barcode sequence as reported by the sequencer.
-* `CY`	Z	- Chromium cellular barcode read quality. Phred scores as reported by sequencer.
-
-* `UB`	Z	- Chromium molecular barcode sequence that is error-corrected among other 
+* `UB`	Z	- Chromium **molecular barcode** sequence that is error-corrected among other 
 molecular barcodes with the same cellular barcode and gene alignment.
 * `UR`	Z	- Chromium molecular barcode sequence as reported by the sequencer.
-* `UY`	Z	- Chromium molecular barcode read quality. Phred scores as reported by sequencer.
 
 The following tags will also be present on reads that mapped to the genome and overlapped 
 either an exon or an intron by at least one base pair (default mode). 
-When `cellranger-arc count` is run with the `--gex-exclude-introns` argument, 
-alignment tags are restricted to reads overlapping exons. 
 A read may align to multiple transcripts and genes, but **it is only considered confidently 
 mapped to the transcriptome if it maps to a single gene**.
 
@@ -104,17 +98,50 @@ Gene names are specified with `gene_name` key in the reference GTF attribute col
 * `MM`	i	Set to 1 if the genome-aligner (STAR) originally gave a **MAPQ < 255** 
 (it multi-mapped to the genome) and Cell Ranger changed it to 255 because the read overlapped 
 exactly one gene.
-* `pa`	i	The number of poly-A nucleotides trimmed from the 3' end of read 2. Up to 10% 
+* `pa`	i	The **number of poly-A nucleotides trimmed** from the 3' end of read 2. Up to 10% 
 mismatches are permitted.
-* `ts` 	i	The number of template switch oligo (TSO) nucleotides trimmed from 
+* `ts` 	i	The **number of template switch oligo (TSO) nucleotides trimmed** from 
 the 5' end of read 2. Up to 3 mismatches are permitted. The 30-bp TSO sequence 
 is `AAGCAGTGGTATCAACGCAGAGTACATGGG`.
-* `xf`	i	Extra alignment flags. The bits of this tag are interpreted as follows:
-    * `1` - The read is confidently mapped to a feature
-    * `2` - The read maps to a feature that the majority of other reads with the 
-    same (Barcode, UMI) pair did not. Discarded as belonging to a low-support molecule.
-    * `8` - This read is representative for the molecule and can be treated as a UMI count
-    * Bits `4` and `16` are used internally by 10X.
+
+#### Transcriptome alignment
+<img src="https://support.10xgenomics.com/img/cellranger-arc/gex-processing-introns.png" width=700x>
+
+### [GEX molecule info](https://support.10xgenomics.com/single-cell-multiome-atac-gex/software/pipelines/latest/output/molecule_info)
+An HDF5 file containing per-molecule information for all molecules that contain a valid barcode and valid UMI and were assigned with high confidence to a gene.
+
+HDF5 file hierarchy
+```
+(root)
+├─ barcode_idx
+├─ barcode_info [HDF5 group]
+│   ├─ genomes
+│   └─ pass_filter
+├─ barcodes
+├─ count
+├─ feature_idx
+├─ features [HDF5 group]
+│   ├─ _all_tag_keys
+│   ├─ feature_type
+│   ├─ genome
+│   ├─ id
+│   └─ name
+├─ gem_group
+├─ library_idx
+├─ library_info
+├─ metrics_json
+├─ umi
+└─ umi_type
+```
+### Per-barcode metrics (csv)
+Each row represents a every observed barcode. The columns contain the paired ATAC and Gene Expression barcode sequences, ATAC and Gex QC metrics for that barcode, as well as whether this barcode was identified as a cell-associated partition by the pipeline.
+```{bash}
+$ head -4 per_barcode_metrics.csv
+barcode,gex_barcode,atac_barcode,is_cell,excluded_reason,gex_raw_reads,gex_mapped_reads,gex_conf_intergenic_reads,gex_conf_exonic_reads,gex_conf_intronic_reads,gex_conf_exonic_unique_reads,gex_conf_exonic_antisense_reads,gex_conf_exonic_dup_reads,gex_exonic_umis,gex_conf_intronic_unique_reads,gex_conf_intronic_antisense_reads,gex_conf_intronic_dup_reads,gex_intronic_umis,gex_conf_txomic_unique_reads,gex_umis_count,gex_genes_count,atac_raw_reads,atac_unmapped_reads,atac_lowmapq,atac_dup_reads,atac_chimeric_reads,atac_mitochondrial_reads,atac_fragments,atac_TSS_fragments,atac_peak_region_fragments,atac_peak_region_cutsites
+AAACAGCCAAACAACA-1,AAACAGCCAAACAACA-1,ACAGCGGGTGTGTTAC-1,0,0,11,10,1,7,2,6,1,4,2,0,2,0,0,6,2,2,9,0,2,1,0,0,6,4,6,12
+AAACAGCCAAACATAG-1,AAACAGCCAAACATAG-1,ACAGCGGGTTGTTCTT-1,0,2,7,7,0,6,1,6,0,5,1,0,1,0,0,6,1,1,3,0,2,0,0,0,1,0,0,0
+AAACAGCCAAATATCC-1,AAACAGCCAAATATCC-1,ACAGCGGGTTGTGACT-1,1,0,58263,56138,2528,33577,17962,31480,1827,27942,3431,11276,6479,9899,1316,30809,4747,2272,16029,141,1332,6440,157,22,7937,4822,7074,13986
+```
 
 ### [TSO (template switch oligo)](https://kb.10xgenomics.com/hc/en-us/articles/360001493051-What-is-a-template-switch-oligo-TSO-)
 * The TSO is hybridizes to untemplated C nucleotides added by the reverse transcriptase during 
@@ -202,7 +229,10 @@ for a cell barcode).
 [fig]
     
 
-## Downstream Analysis (count matrix --> )
+## Downstream Analysis (based on peak-cell count matrix and gene-cell count matrix)
+<img src="https://media.springernature.com/lw685/springer-static/image/art%3A10.1038%2Fs41576-019-0093-7/MediaObjects/41576_2019_93_Fig3_HTML.png?as=webp" width="600x">
+
+
 ### [10x](https://support.10xgenomics.com/single-cell-multiome-atac-gex/software/overview/welcome) 
 #### software: `cellranger-arc`
 * Dimension reduction
@@ -245,7 +275,7 @@ than in our CITE-seq example), but WNN provides the clearest separation of cell 
     E.g. the ATAC-seq data assists in the separation of CD4 and CD8 T cell states. 
     This is due to the presence of multiple loci that exhibit differential accessibility between 
     different T cell subtypes.
-    ![image](https://satijalab.org/seurat/articles/weighted_nearest_neighbor_analysis_files/figure-html/UMAPs-1.png)
+    <img src="https://satijalab.org/seurat/articles/weighted_nearest_neighbor_analysis_files/figure-html/UMAPs-1.png" width="600x">
 4. Examine the accessible regions of each cell to determine enriched motifs. (e.g. ChromVar)
 5. Explore the multimodal dataset to identify key regulators (e.g. TF modulators) of each cell state. 
 
@@ -258,8 +288,8 @@ overlap with any other aggregate in order to reduce bias.
 Integrates scATAC-seq and scRNA-seq for “peak-to-gene links” (links the center of the peak to 
 the single-base TSS of the gene.) and the prediction of enhancer activity through peak-to-gene linkage analysis.
 
-![image](https://www.archrproject.com/bookdown/images/HemeWalkthrough/PNG/Plot-Tracks-Marker-Genes-with-Peak2GeneLinks_5.png)
-![image](resources/archR_crop_Plot-Tracks-Marker-Genes-with-CoAccessibility_5_cluster2_cd14.png)
+<img src="https://www.archrproject.com/bookdown/images/HemeWalkthrough/PNG/Plot-Tracks-Marker-Genes-with-Peak2GeneLinks_5.png" width="600x">
+<img src="resources/archR_crop_Plot-Tracks-Marker-Genes-with-CoAccessibility_5_cluster2_cd14.png" width="600x">
 
 
 
