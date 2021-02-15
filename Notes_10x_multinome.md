@@ -38,9 +38,9 @@ output folder that includes fastq files: \
 `[Sample Name]_S1_L00[Lane Number]_[Read Type]_001.fastq.gz` \
 where `[Read Type]` is one of:
 * I1: Dual index i7 read (optional) - includes the 10bp sample index sequence i7.
+* I2: Dual index i5 read (optional) - includes the 10bp sample index sequence i5.
 * R1: TruSeq Read 1 - used to sequence the 16 bp 10x Barcodes + 12 bp UMI
-* R2: Dual index i5 read (optional) - includes the 10bp sample index sequence i5.
-* R3: TruSeq Read 2 - used to sequence the insert
+* R2: TruSeq Read 2 - used to sequence the insert
 
 ### BAM
 #### [ATAC BAM](https://support.10xgenomics.com/single-cell-multiome-atac-gex/software/pipelines/latest/output/bam-atac)
