@@ -276,7 +276,7 @@ the single-base TSS of the gene.) and the prediction of enhancer activity throug
 
 ## Workflow
 * If choose “rna” mode in snakemake, integrate with rna-seq
-   * snakemake all_rna …
+   * `snakemake all_rna …`
 * Input of gene expression
    10x cellranger-arc output of the raw barcode-feature matrix (we do not want to alter the 10x pre-processing steps for RNA-seq)
 * Output
