@@ -281,6 +281,9 @@ the single-base TSS of the gene.) and the prediction of enhancer activity throug
    10x cellranger-arc output of the raw barcode-feature matrix (we do not want to alter the 10x pre-processing steps for RNA-seq)
 * Output
    2 count matrices: cell-peak count matrix; cell-gene expression matrix
+* Downstream analysis:
+   * co-clustering
+   * linkage plot
 * Barcodes are selected based on avocato ATAC-seq processing results
 * Dataset: 10x multinome pbmc3k granunocytes sorted
    Build: GRCh38
