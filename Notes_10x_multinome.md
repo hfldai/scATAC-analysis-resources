@@ -274,4 +274,17 @@ the single-base TSS of the gene.) and the prediction of enhancer activity throug
 <img src="resources/archR_crop_Plot-Tracks-Marker-Genes-with-CoAccessibility_5_cluster2_cd14.png" width="600x">
 
 
+## Workflow
+* If choose “rna” mode in snakemake, integrate with rna-seq
+   * snakemake all_rna …
+* Input of gene expression
+   10x cellranger-arc output of the raw barcode-feature matrix (we do not want to alter the 10x pre-processing steps for RNA-seq)
+* Output
+   2 count matrices: cell-peak count matrix; cell-gene expression matrix
+* Barcodes are selected based on avocato ATAC-seq processing results
+* Dataset: 10x multinome pbmc3k granunocytes sorted
+   Build: GRCh38
+
+
+
 
